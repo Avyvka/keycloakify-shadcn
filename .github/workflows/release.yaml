@@ -21,12 +21,12 @@ jobs:
       - run: pnpm run build-keycloak-theme
       - uses: softprops/action-gh-release@v2
         with:
-          name: ${{ github.event.release.name }}
-          tag_name: ${{ github.event.release.tag_name }}
-          target_commitish: ${{ github.event.release.target_commitish }}
-          generate_release_notes: false
-          draft: ${{ github.event.release.draft }}
-          prerelease: ${{ github.event.release.prerelease }}
+          name: Release v${{ github.event.release.tag_name }}
+          tag_name: v${{ github.event.release.tag_name }}
+          target_commitish: ${{ github.head_ref || github.ref }}
+          generate_release_notes: true
+          draft: false
+          prerelease: false
           files: dist_keycloak/keycloak-theme-*.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
