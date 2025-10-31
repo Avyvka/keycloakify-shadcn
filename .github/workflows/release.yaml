@@ -19,14 +19,9 @@ jobs:
           cache: 'pnpm'
       - run: pnpm install
       - run: pnpm run build-keycloak-theme
-      - uses: softprops/action-gh-release@v2
+      - uses: svenstaro/upload-release-action@2.9.0
         with:
-          name: ${{ github.event.release.name }}
-          tag_name: ${{ github.event.release.tag_name }}
-          target_commitish: ${{ github.event.release.target_commitish }}
-          generate_release_notes: false
-          draft: ${{ github.event.release.draft }}
-          prerelease: ${{ github.event.release.prerelease }}
-          files: dist_keycloak/keycloak-theme-*.jar
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: dist_keycloak/keycloak-theme-*.jar
+          asset_name: keycloak-theme-${{ github.event.release.tag_name }}.jar
+          tag: ${{ github.event.release.tag_name }}
