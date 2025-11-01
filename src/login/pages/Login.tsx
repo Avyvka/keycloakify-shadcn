@@ -52,44 +52,46 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
             socialProvidersNode={
                 <>
                     {realm.password && social?.providers !== undefined && social.providers.length !== 0 && (
-                        <div id="kc-social-providers" className={kcClsx("kcFormSocialAccountSectionClass")}>
-                            {/*<hr />*/}
-                            {/*<h2>{msg("identity-provider-login-label")}</h2>*/}
-                            <FieldSeparator className="my-6">{msg("identity-provider-login-label")}</FieldSeparator>
-                            <ul
-                                // className={kcClsx("kcFormSocialAccountListClass", social.providers.length > 3 && "kcFormSocialAccountListGridClass")}
-                                className="flex flex-col gap-2"
-                            >
-                                {social.providers.map((...[p, , providers]) => (
-                                    <li key={p.alias}>
-                                        <Field>
-                                            <Button variant="outline" type="button" asChild>
-                                                <a
-                                                    id={`social-${p.alias}`}
-                                                    className={kcClsx(
-                                                        "kcFormSocialAccountListButtonClass",
-                                                        providers.length > 3 && "kcFormSocialAccountGridItem"
-                                                    )}
-                                                    type="button"
-                                                    href={p.loginUrl}
-                                                >
-                                                    {p.iconClasses && (
-                                                        <i className={clsx(kcClsx("kcCommonLogoIdP"), p.iconClasses)} aria-hidden="true"></i>
-                                                    )}
-                                                    <span
-                                                        className={clsx(
-                                                            kcClsx("kcFormSocialAccountNameClass"),
-                                                            p.iconClasses && "kc-social-icon-text"
+                        <>
+                            <FieldSeparator>{msg("identity-provider-login-label")}</FieldSeparator>
+                            <div id="kc-social-providers" className={kcClsx("kcFormSocialAccountSectionClass")}>
+                                {/*<hr />*/}
+                                {/*<h2>{msg("identity-provider-login-label")}</h2>*/}
+                                <ul
+                                    // className={kcClsx("kcFormSocialAccountListClass", social.providers.length > 3 && "kcFormSocialAccountListGridClass")}
+                                    className="flex flex-col gap-2"
+                                >
+                                    {social.providers.map((...[p, , providers]) => (
+                                        <li key={p.alias}>
+                                            <Field>
+                                                <Button variant="outline" type="button" asChild>
+                                                    <a
+                                                        id={`social-${p.alias}`}
+                                                        className={kcClsx(
+                                                            "kcFormSocialAccountListButtonClass",
+                                                            providers.length > 3 && "kcFormSocialAccountGridItem"
                                                         )}
-                                                        dangerouslySetInnerHTML={{ __html: kcSanitize(p.displayName) }}
-                                                    ></span>
-                                                </a>
-                                            </Button>
-                                        </Field>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
+                                                        type="button"
+                                                        href={p.loginUrl}
+                                                    >
+                                                        {p.iconClasses && (
+                                                            <i className={clsx(kcClsx("kcCommonLogoIdP"), p.iconClasses)} aria-hidden="true"></i>
+                                                        )}
+                                                        <span
+                                                            className={clsx(
+                                                                kcClsx("kcFormSocialAccountNameClass"),
+                                                                p.iconClasses && "kc-social-icon-text"
+                                                            )}
+                                                            dangerouslySetInnerHTML={{ __html: kcSanitize(p.displayName) }}
+                                                        ></span>
+                                                    </a>
+                                                </Button>
+                                            </Field>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </>
                     )}
                 </>
             }
