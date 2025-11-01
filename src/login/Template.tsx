@@ -7,7 +7,7 @@ import { useSetClassName } from "keycloakify/tools/useSetClassName";
 import { useInitialize } from "keycloakify/login/Template.useInitialize";
 import type { I18n } from "./i18n";
 import type { KcContext } from "./KcContext";
-import { AlertTriangle, CheckCircle2, GalleryVerticalEnd, Globe, Info, XCircle } from "lucide-react";
+import { AlertTriangle, CheckCircle2, GalleryVerticalEnd, Globe, Info, RefreshCcw, XCircle } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { Alert, AlertDescription } from "@/components/ui/alert.tsx";
@@ -123,7 +123,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                     {/* Card */}
                     <div className="flex flex-1 items-center justify-center">
                         <div className="w-full max-w-xs">
-                            <div className={kcClsx("kcFormCardClass")}>
+                            <div className={clsx("flex flex-col gap-6", kcClsx("kcFormCardClass"))}>
                                 <header className={kcClsx("kcFormHeaderClass")}>
                                     {(() => {
                                         const node = !(auth !== undefined && auth.showUsername && !auth.showResetCredentials) ? (
@@ -131,19 +131,22 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                                                 <h1 id="kc-page-title" className="text-2xl font-bold">
                                                     {headerNode}
                                                 </h1>
-                                                <p className="text-muted-foreground text-sm text-balance">
-                                                    Enter your email below to login to your account
-                                                </p>
                                             </div>
                                         ) : (
                                             <div id="kc-username" className={kcClsx("kcFormGroupClass")}>
-                                                <label id="kc-attempted-username">{auth.attemptedUsername}</label>
-                                                <a id="reset-login" href={url.loginRestartFlowUrl} aria-label={msgStr("restartLoginTooltip")}>
-                                                    <div className="kc-login-tooltip">
-                                                        <i className={kcClsx("kcResetFlowIcon")}></i>
-                                                        <span className="kc-tooltip-text">{msg("restartLoginTooltip")}</span>
-                                                    </div>
-                                                </a>
+                                                <Button asChild variant="outline" className="flex justify-start">
+                                                    <a id="reset-login" href={url.loginRestartFlowUrl} aria-label={msgStr("restartLoginTooltip")}>
+                                                        <RefreshCcw className="h-2 w-2" />
+                                                        {/*<div className="kc-login-tooltip">*/}
+                                                        {/*    <i className={kcClsx("kcResetFlowIcon")}></i>*/}
+                                                        {/*    <span className="kc-tooltip-text">{msg("restartLoginTooltip")}</span>*/}
+                                                        {/*</div>*/}
+                                                        <label id="kc-attempted-username" className="hidden">
+                                                            {auth.attemptedUsername}
+                                                        </label>
+                                                        <span>{auth.attemptedUsername}</span>
+                                                    </a>
+                                                </Button>
                                             </div>
                                         );
 
@@ -171,46 +174,46 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                                     })()}
                                 </header>
                                 <div id="kc-content">
-                                    <div id="kc-content-wrapper">
+                                    <div id="kc-content-wrapper" className="flex flex-col gap-6">
                                         {/* App-initiated actions should not see warning messages about the need to complete the action during login. */}
-                                        <div className="py-3">
-                                            {displayMessage && message !== undefined && (message.type !== "warning" || !isAppInitiatedAction) && (
-                                                <Alert
-                                                    className={clsx(
-                                                        `alert-${message.type}`,
-                                                        kcClsx("kcAlertClass"),
-                                                        `pf-m-${message?.type === "error" ? "danger" : message.type}`,
-                                                        message.type === "success" && "text-green-600 border-green-300",
-                                                        message.type === "warning" && "text-yellow-600 border-yellow-300",
-                                                        message.type === "error" && "text-red-600 border-red-300"
-                                                    )}
-                                                >
-                                                    {/*<div className="pf-c-alert__icon">*/}
-                                                    {/*    {message.type === "success" && <span className={kcClsx("kcFeedbackSuccessIcon")}></span>}*/}
-                                                    {/*    {message.type === "warning" && <span className={kcClsx("kcFeedbackWarningIcon")}></span>}*/}
-                                                    {/*    {message.type === "error" && <span className={kcClsx("kcFeedbackErrorIcon")}></span>}*/}
-                                                    {/*    {message.type === "info" && <span className={kcClsx("kcFeedbackInfoIcon")}></span>}*/}
-                                                    {/*</div>*/}
-                                                    {message.type === "success" && <CheckCircle2 />}
-                                                    {message.type === "warning" && <AlertTriangle />}
-                                                    {message.type === "error" && <XCircle />}
-                                                    {message.type === "info" && <Info />}
-                                                    <AlertDescription>
-                                                        <span
-                                                            className={clsx(
-                                                                kcClsx("kcAlertTitleClass"),
-                                                                message.type === "success" && "text-green-600",
-                                                                message.type === "warning" && "text-yellow-600",
-                                                                message.type === "error" && "text-red-600"
-                                                            )}
-                                                            dangerouslySetInnerHTML={{
-                                                                __html: kcSanitize(message.summary)
-                                                            }}
-                                                        />
-                                                    </AlertDescription>
-                                                </Alert>
-                                            )}
-                                        </div>
+                                        {displayMessage && message !== undefined && (message.type !== "warning" || !isAppInitiatedAction) && (
+                                            <Alert
+                                                className={clsx(
+                                                    `alert-${message.type}`,
+                                                    kcClsx("kcAlertClass"),
+                                                    `pf-m-${message?.type === "error" ? "danger" : message.type}`,
+                                                    message.type === "success" && "text-green-600 border-green-300",
+                                                    message.type === "warning" && "text-yellow-600 border-yellow-300",
+                                                    message.type === "error" && "text-red-600 border-red-300",
+                                                    message.type === "info" && "text-sky-600 border-blue-300"
+                                                )}
+                                            >
+                                                {/*<div className="pf-c-alert__icon">*/}
+                                                {/*    {message.type === "success" && <span className={kcClsx("kcFeedbackSuccessIcon")}></span>}*/}
+                                                {/*    {message.type === "warning" && <span className={kcClsx("kcFeedbackWarningIcon")}></span>}*/}
+                                                {/*    {message.type === "error" && <span className={kcClsx("kcFeedbackErrorIcon")}></span>}*/}
+                                                {/*    {message.type === "info" && <span className={kcClsx("kcFeedbackInfoIcon")}></span>}*/}
+                                                {/*</div>*/}
+                                                {message.type === "success" && <CheckCircle2 />}
+                                                {message.type === "warning" && <AlertTriangle />}
+                                                {message.type === "error" && <XCircle />}
+                                                {message.type === "info" && <Info />}
+                                                <AlertDescription>
+                                                    <span
+                                                        className={clsx(
+                                                            kcClsx("kcAlertTitleClass"),
+                                                            message.type === "success" && "text-green-600",
+                                                            message.type === "warning" && "text-yellow-600",
+                                                            message.type === "error" && "text-red-600",
+                                                            message.type === "info" && "text-sky-600"
+                                                        )}
+                                                        dangerouslySetInnerHTML={{
+                                                            __html: kcSanitize(message.summary)
+                                                        }}
+                                                    />
+                                                </AlertDescription>
+                                            </Alert>
+                                        )}
                                         {children}
                                         {auth !== undefined && auth.showTryAnotherWayLink && (
                                             <form id="kc-select-try-another-way-form" action={url.loginAction} method="post">
