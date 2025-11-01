@@ -1,0 +1,27 @@
+name: release
+
+on:
+  release:
+    types: [ published ]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - run: pnpm install
+      - run: pnpm run build-keycloak-theme
+      - uses: svenstaro/upload-release-action@2.9.0
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: dist_keycloak/keycloak-theme-for-kc-all-other-versions.jar
+          asset_name: keycloakify-shadcn-${{ github.event.release.tag_name }}.jar
+          tag: ${{ github.event.release.tag_name }}
