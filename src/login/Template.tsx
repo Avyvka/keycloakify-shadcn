@@ -11,6 +11,7 @@ import { AlertTriangle, CheckCircle2, GalleryVerticalEnd, Globe, Info, RefreshCc
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { Alert, AlertDescription } from "@/components/ui/alert.tsx";
+import { Card, CardContent } from "@/components/ui/card.tsx";
 
 export default function Template(props: TemplateProps<KcContext, I18n>) {
     const {
@@ -56,74 +57,74 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
     }
 
     return (
-        <div className={kcClsx("kcLoginClass")}>
-            <div className="grid min-h-svh">
-                <div className="flex flex-col gap-4 p-6 md:p-10">
-                    {/* Header */}
-                    <div className="flex justify-center gap-2 md:justify-start">
-                        <div id="kc-header" className={kcClsx("kcHeaderClass")}>
-                            <div id="kc-header-wrapper" className={kcClsx("kcHeaderWrapperClass")}>
-                                <a href="#" className="flex items-center gap-2 font-medium">
-                                    <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
-                                        <GalleryVerticalEnd className="size-4" />
-                                    </div>
-                                    {msg("loginTitleHtml", realm.displayNameHtml)}
-                                </a>
-                            </div>
-                        </div>
-                        <div className="ms-auto">
-                            {enabledLanguages.length > 1 && (
-                                <div className={kcClsx("kcLocaleMainClass")} id="kc-locale">
-                                    <div id="kc-locale-wrapper" className={kcClsx("kcLocaleWrapperClass")}>
-                                        <div id="kc-locale-dropdown" className={clsx("menu-button-links", kcClsx("kcLocaleDropDownClass"))}>
-                                            <DropdownMenu>
-                                                <DropdownMenuTrigger asChild>
-                                                    <Button
-                                                        tabIndex={1}
-                                                        id="kc-current-locale-link"
-                                                        aria-label={msgStr("languages")}
-                                                        aria-haspopup="true"
-                                                        aria-expanded="false"
-                                                        aria-controls="language-switch1"
-                                                        variant="ghost"
-                                                        size="sm"
-                                                    >
-                                                        <span className="capitalize">{currentLanguage.languageTag}</span>
-                                                        <Globe />
-                                                    </Button>
-                                                </DropdownMenuTrigger>
-                                                <DropdownMenuContent
-                                                    role="menu"
-                                                    tabIndex={-1}
-                                                    aria-labelledby="kc-current-locale-link"
-                                                    aria-activedescendant=""
-                                                    id="language-switch1"
-                                                    className={kcClsx("kcLocaleListClass")}
-                                                >
-                                                    {enabledLanguages.map(({ languageTag, label, href }, i) => (
-                                                        <DropdownMenuItem key={languageTag} className={kcClsx("kcLocaleListItemClass")} role="none">
-                                                            <a
-                                                                role="menuitem"
-                                                                id={`language-${i + 1}`}
-                                                                className={kcClsx("kcLocaleItemClass")}
-                                                                href={href}
-                                                            >
-                                                                {label}
-                                                            </a>
-                                                        </DropdownMenuItem>
-                                                    ))}
-                                                </DropdownMenuContent>
-                                            </DropdownMenu>
-                                        </div>
-                                    </div>
+        <div className={clsx("bg-muted grid min-h-svh", kcClsx("kcLoginClass"))}>
+            <div className="flex flex-col gap-4 p-6 md:p-10">
+                {/* Header */}
+                <div className="flex justify-center gap-2 md:justify-start">
+                    <div id="kc-header" className={kcClsx("kcHeaderClass")}>
+                        <div id="kc-header-wrapper" className={kcClsx("kcHeaderWrapperClass")}>
+                            <a href="#" className="flex items-center gap-2 font-medium">
+                                <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
+                                    <GalleryVerticalEnd className="size-4" />
                                 </div>
-                            )}
+                                {msg("loginTitleHtml", realm.displayNameHtml)}
+                            </a>
                         </div>
                     </div>
-                    {/* Card */}
-                    <div className="flex flex-1 items-center justify-center">
-                        <div className="w-full max-w-xs">
-                            <div className={clsx("flex flex-col gap-6", kcClsx("kcFormCardClass"))}>
+                    <div className="ms-auto">
+                        {enabledLanguages.length > 1 && (
+                            <div className={kcClsx("kcLocaleMainClass")} id="kc-locale">
+                                <div id="kc-locale-wrapper" className={kcClsx("kcLocaleWrapperClass")}>
+                                    <div id="kc-locale-dropdown" className={clsx("menu-button-links", kcClsx("kcLocaleDropDownClass"))}>
+                                        <DropdownMenu>
+                                            <DropdownMenuTrigger asChild>
+                                                <Button
+                                                    tabIndex={1}
+                                                    id="kc-current-locale-link"
+                                                    aria-label={msgStr("languages")}
+                                                    aria-haspopup="true"
+                                                    aria-expanded="false"
+                                                    aria-controls="language-switch1"
+                                                    variant="ghost"
+                                                    size="sm"
+                                                >
+                                                    <span className="capitalize">{currentLanguage.languageTag}</span>
+                                                    <Globe />
+                                                </Button>
+                                            </DropdownMenuTrigger>
+                                            <DropdownMenuContent
+                                                role="menu"
+                                                tabIndex={-1}
+                                                aria-labelledby="kc-current-locale-link"
+                                                aria-activedescendant=""
+                                                id="language-switch1"
+                                                className={kcClsx("kcLocaleListClass")}
+                                            >
+                                                {enabledLanguages.map(({ languageTag, label, href }, i) => (
+                                                    <DropdownMenuItem key={languageTag} className={kcClsx("kcLocaleListItemClass")} role="none">
+                                                        <a
+                                                            role="menuitem"
+                                                            id={`language-${i + 1}`}
+                                                            className={kcClsx("kcLocaleItemClass")}
+                                                            href={href}
+                                                        >
+                                                            {label}
+                                                        </a>
+                                                    </DropdownMenuItem>
+                                                ))}
+                                            </DropdownMenuContent>
+                                        </DropdownMenu>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+                {/* Card */}
+                <div className="flex flex-1 items-center justify-center">
+                    <div className="w-full max-w-md">
+                        <Card className="overflow-hidden p-6 md:p-8">
+                            <CardContent className={clsx("flex flex-col gap-6 p-0", kcClsx("kcFormCardClass"))}>
                                 <header className={kcClsx("kcFormHeaderClass")}>
                                     {(() => {
                                         const node = !(auth !== undefined && auth.showUsername && !auth.showResetCredentials) ? (
@@ -242,8 +243,8 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                                         )}
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </CardContent>
+                        </Card>
                     </div>
                 </div>
             </div>
