@@ -13,6 +13,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/ui/input-group.tsx";
 import { Checkbox } from "@/components/ui/checkbox.tsx";
 import { Button } from "@/components/ui/button.tsx";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Login(props: PageProps<Extract<KcContext, { pageId: "login.ftl" }>, I18n>) {
     const { kcContext, i18n, doUseDefaultCss, Template, classes } = props;
@@ -58,8 +59,11 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                                 {/*<hr />*/}
                                 {/*<h2>{msg("identity-provider-login-label")}</h2>*/}
                                 <ul
-                                    // className={kcClsx("kcFormSocialAccountListClass", social.providers.length > 3 && "kcFormSocialAccountListGridClass")}
-                                    className="flex flex-col gap-2"
+                                    className={clsx(
+                                        "grid gap-2",
+                                        social.providers.length > 4 && "grid-cols-2",
+                                        kcClsx("kcFormSocialAccountListClass", social.providers.length > 3 && "kcFormSocialAccountListGridClass")
+                                    )}
                                 >
                                     {social.providers.map((...[p, , providers]) => (
                                         <li key={p.alias}>
@@ -75,7 +79,8 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                                                         href={p.loginUrl}
                                                     >
                                                         {p.iconClasses && (
-                                                            <i className={clsx(kcClsx("kcCommonLogoIdP"), p.iconClasses)} aria-hidden="true"></i>
+                                                            // <i className={clsx(kcClsx("kcCommonLogoIdP"), p.iconClasses)} aria-hidden="true"></i>
+                                                            <FontAwesomeIcon icon={p.iconClasses.replace("fa", "fab") as never} />
                                                         )}
                                                         <span
                                                             className={clsx(
