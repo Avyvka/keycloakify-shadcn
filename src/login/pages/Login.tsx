@@ -59,7 +59,7 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                             <ul
                                 // className={kcClsx("kcFormSocialAccountListClass", social.providers.length > 3 && "kcFormSocialAccountListGridClass")}
                                 className="flex flex-col gap-2"
-                                >
+                            >
                                 {social.providers.map((...[p, , providers]) => (
                                     <li key={p.alias}>
                                         <Field>
@@ -183,44 +183,46 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                                 )}
                             </Field>
 
-                            <div
-                                //className={kcClsx("kcFormGroupClass", "kcFormSettingClass")}
-                                className="flex items-center"
-                            >
-                                <div id="kc-form-options">
-                                    {realm.rememberMe && !usernameHidden && (
-                                        <Field
-                                            // className="checkbox"
-                                            orientation="horizontal"
-                                        >
-                                            <Checkbox
-                                                tabIndex={5}
-                                                id="rememberMe"
-                                                name="rememberMe"
-                                                // type="checkbox"
-                                                defaultChecked={!!login.rememberMe}
-                                            />
-                                            <FieldLabel htmlFor="rememberMe"> {msg("rememberMe")}</FieldLabel>
-                                        </Field>
-                                    )}
-                                </div>
+                            {(realm.rememberMe || realm.resetPasswordAllowed) && (
                                 <div
-                                    //className={kcClsx("kcFormOptionsWrapperClass")}
-                                    className="ms-auto"
+                                    //className={kcClsx("kcFormGroupClass", "kcFormSettingClass")}
+                                    className="flex items-center"
                                 >
-                                    {realm.resetPasswordAllowed && (
-                                        <span>
-                                            <a
-                                                tabIndex={6}
-                                                href={url.loginResetCredentialsUrl}
-                                                className="ml-auto text-sm underline-offset-4 hover:underline"
+                                    <div id="kc-form-options">
+                                        {realm.rememberMe && !usernameHidden && (
+                                            <Field
+                                                // className="checkbox"
+                                                orientation="horizontal"
                                             >
-                                                {msg("doForgotPassword")}
-                                            </a>
-                                        </span>
-                                    )}
+                                                <Checkbox
+                                                    tabIndex={5}
+                                                    id="rememberMe"
+                                                    name="rememberMe"
+                                                    // type="checkbox"
+                                                    defaultChecked={!!login.rememberMe}
+                                                />
+                                                <FieldLabel htmlFor="rememberMe"> {msg("rememberMe")}</FieldLabel>
+                                            </Field>
+                                        )}
+                                    </div>
+                                    <div
+                                        //className={kcClsx("kcFormOptionsWrapperClass")}
+                                        className="ms-auto"
+                                    >
+                                        {realm.resetPasswordAllowed && (
+                                            <span>
+                                                <a
+                                                    tabIndex={6}
+                                                    href={url.loginResetCredentialsUrl}
+                                                    className="ml-auto text-sm underline-offset-4 hover:underline"
+                                                >
+                                                    {msg("doForgotPassword")}
+                                                </a>
+                                            </span>
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
+                            )}
 
                             <Field id="kc-form-buttons" className={kcClsx("kcFormGroupClass")}>
                                 <input type="hidden" id="id-hidden-input" name="credentialId" value={auth.selectedCredential} />
