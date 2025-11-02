@@ -1,19 +1,17 @@
-import type { JSX } from "keycloakify/tools/JSX";
 import { useState } from "react";
 import { kcSanitize } from "keycloakify/lib/kcSanitize";
-import { useIsPasswordRevealed } from "keycloakify/tools/useIsPasswordRevealed";
 import { clsx } from "keycloakify/tools/clsx";
 import type { PageProps } from "keycloakify/login/pages/PageProps";
-import { getKcClsx, type KcClsx } from "keycloakify/login/lib/kcClsx";
-import type { KcContext } from "../KcContext";
-import type { I18n } from "../i18n";
+import { getKcClsx } from "keycloakify/login/lib/kcClsx";
+import type { KcContext } from "@/login/KcContext";
+import type { I18n } from "@/login/i18n";
 import { Field, FieldDescription, FieldError, FieldLabel, FieldSeparator } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { Eye, EyeOff } from "lucide-react";
-import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/ui/input-group.tsx";
-import { Checkbox } from "@/components/ui/checkbox.tsx";
-import { Button } from "@/components/ui/button.tsx";
+import { InputGroupInput } from "@/components/ui/input-group";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { PasswordWrapper } from "@/components/password-wrapper";
 
 export default function Login(props: PageProps<Extract<KcContext, { pageId: "login.ftl" }>, I18n>) {
     const { kcContext, i18n, doUseDefaultCss, Template, classes } = props;
@@ -251,34 +249,5 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                 </div>
             </div>
         </Template>
-    );
-}
-
-function PasswordWrapper(props: { kcClsx: KcClsx; i18n: I18n; passwordInputId: string; children: JSX.Element }) {
-    const { kcClsx, i18n, passwordInputId, children } = props;
-
-    const { msgStr } = i18n;
-
-    const { isPasswordRevealed, toggleIsPasswordRevealed } = useIsPasswordRevealed({ passwordInputId });
-
-    return (
-        <InputGroup
-            // className={kcClsx("kcInputGroup")}
-            className="flex"
-        >
-            {children}
-            <InputGroupAddon className="text-current" align="inline-end">
-                <InputGroupButton
-                    type="button"
-                    className={kcClsx("kcFormPasswordVisibilityButtonClass")}
-                    aria-label={msgStr(isPasswordRevealed ? "hidePassword" : "showPassword")}
-                    aria-controls={passwordInputId}
-                    onClick={toggleIsPasswordRevealed}
-                >
-                    {/*<i className={kcClsx(isPasswordRevealed ? "kcFormPasswordVisibilityIconHide" : "kcFormPasswordVisibilityIconShow")} aria-hidden />*/}
-                    <div>{isPasswordRevealed ? <EyeOff /> : <Eye />}</div>
-                </InputGroupButton>
-            </InputGroupAddon>
-        </InputGroup>
     );
 }
