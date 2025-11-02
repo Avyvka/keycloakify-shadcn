@@ -19,7 +19,7 @@ if (import.meta.env.DEV) {
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
-        <ThemeProvider defaultTheme="dark" storageKey="theme">
+        <ThemeProvider defaultTheme="system" storageKey="theme">
             {!window.kcContext ? (
                 <h1>No Keycloak Context</h1>
             ) : (
