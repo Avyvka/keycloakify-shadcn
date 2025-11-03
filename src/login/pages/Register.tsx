@@ -9,7 +9,6 @@ import type { PageProps } from "keycloakify/login/pages/PageProps";
 import type { KcContext } from "../KcContext";
 import type { I18n } from "../i18n";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft } from "lucide-react";
 import { Field, FieldContent, FieldDescription, FieldError, FieldLabel } from "@/components/ui/field";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -82,27 +81,33 @@ export default function Register(props: RegisterProps) {
                     )}
                     <div
                         // className={kcClsx("kcFormGroupClass")}
-                        className="flex justify-between items-center"
+                        className="flex flex-col-reverse gap-3"
                     >
                         <div id="kc-form-options" className={kcClsx("kcFormOptionsClass")}>
-                            <div className={kcClsx("kcFormOptionsWrapperClass")}>
-                                <Button variant="secondary" asChild>
+                            <div
+                                // className={kcClsx("kcFormOptionsWrapperClass")}
+                                className="flex flex-col items-center"
+                            >
+                                <FieldDescription>
+                                    {msgStr("loginAccountTitle")}
+                                    {"? "}
                                     <a href={url.loginUrl}>
                                         {msgStr("backToLogin").startsWith("&laquo;") ? (
-                                            <>
-                                                <ChevronLeft />
-                                                {msgStr("backToLogin").replace("&laquo;", "")}
-                                            </>
+                                            <>{msgStr("backToLogin").replace("&laquo; ", "")}</>
                                         ) : (
                                             msg("backToLogin")
                                         )}
                                     </a>
-                                </Button>
+                                </FieldDescription>
                             </div>
                         </div>
 
                         {recaptchaRequired && !recaptchaVisible && recaptchaAction !== undefined ? (
-                            <div id="kc-form-buttons" className={kcClsx("kcFormButtonsClass")}>
+                            <div
+                                id="kc-form-buttons"
+                                // className={kcClsx("kcFormButtonsClass")}
+                                className="flex flex-col"
+                            >
                                 <Button
                                     className={clsx(
                                         kcClsx("kcButtonClass", "kcButtonPrimaryClass", "kcButtonBlockClass", "kcButtonLargeClass"),
@@ -117,7 +122,11 @@ export default function Register(props: RegisterProps) {
                                 </Button>
                             </div>
                         ) : (
-                            <div id="kc-form-buttons" className={kcClsx("kcFormButtonsClass")}>
+                            <div
+                                id="kc-form-buttons"
+                                // className={kcClsx("kcFormButtonsClass")}
+                                className="flex flex-col"
+                            >
                                 <Button
                                     variant="default"
                                     disabled={!isFormSubmittable || (termsAcceptanceRequired && !areTermsAccepted)}
@@ -163,22 +172,21 @@ function TermsAcceptance(props: {
                 </FieldLabel>
                 {messagesPerField.existsError("termsAccepted") && (
                     <FieldError className={kcClsx("kcLabelWrapperClass")}>
-                    <span
-                        id="input-error-terms-accepted"
-                        className={kcClsx("kcInputErrorMessageClass")}
-                        aria-live="polite"
-                        dangerouslySetInnerHTML={{
-                            __html: kcSanitize(messagesPerField.get("termsAccepted"))
-                        }}
-                    />
+                        <span
+                            id="input-error-terms-accepted"
+                            className={kcClsx("kcInputErrorMessageClass")}
+                            aria-live="polite"
+                            dangerouslySetInnerHTML={{
+                                __html: kcSanitize(messagesPerField.get("termsAccepted"))
+                            }}
+                        />
                     </FieldError>
                 )}
                 <FieldDescription
                     dangerouslySetInnerHTML={{
                         __html: kcSanitize(`${msgStr("termsTitle")} ${msgStr("termsText")}`)
                     }}
-                >
-                </FieldDescription>
+                ></FieldDescription>
             </FieldContent>
         </Field>
     );
