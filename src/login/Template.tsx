@@ -58,9 +58,9 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
 
     return (
         <div className={clsx("bg-card grid min-h-svh sm:bg-muted", kcClsx("kcLoginClass"))}>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col py-6 sm:py-10">
                 {/* Header */}
-                <div className="flex items-center justify-center gap-2 md:justify-start p-6 sm:p-10">
+                <div className="flex items-center justify-center gap-2 md:justify-start px-6 sm:px-10">
                     <div id="kc-header" className={kcClsx("kcHeaderClass")}>
                         <div id="kc-header-wrapper" className={kcClsx("kcHeaderWrapperClass")}>
                             <a href="#" className="flex items-center gap-2 font-medium">
@@ -121,7 +121,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                     </div>
                 </div>
                 {/* Card */}
-                <div className="flex flex-1 items-center justify-center">
+                <div className="flex flex-1 items-center justify-center py-6 sm:py-10">
                     <div className="w-full max-w-sm sm:max-w-md">
                         <Card className="overflow-hidden p-6 sm:p-8 shadow-none sm:shadow-sm border-0 sm:border">
                             <CardContent className={clsx("flex flex-col gap-6 p-0", kcClsx("kcFormCardClass"))}>
