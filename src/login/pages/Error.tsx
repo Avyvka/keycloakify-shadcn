@@ -30,7 +30,7 @@ export default function Error(props: PageProps<Extract<KcContext, { pageId: "err
                                 {msgStr("backToLogin").startsWith("&laquo;") ? (
                                     <>
                                         <MoveLeft />
-                                        {msgStr("backToLogin").replace("&laquo;", "")}
+                                        {msgStr("backToLogin").replace("&laquo; ", "")}
                                     </>
                                 ) : (
                                     msg("backToLogin")
