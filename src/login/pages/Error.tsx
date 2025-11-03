@@ -3,13 +3,14 @@ import { kcSanitize } from "keycloakify/lib/kcSanitize";
 import type { KcContext } from "../KcContext";
 import type { I18n } from "../i18n";
 import { Button } from "@/components/ui/button";
+import { MoveLeft } from "lucide-react";
 
 export default function Error(props: PageProps<Extract<KcContext, { pageId: "error.ftl" }>, I18n>) {
     const { kcContext, i18n, doUseDefaultCss, Template, classes } = props;
 
     const { message, client, skipLink } = kcContext;
 
-    const { msg } = i18n;
+    const { msg, msgStr } = i18n;
 
     return (
         <Template
@@ -20,13 +21,20 @@ export default function Error(props: PageProps<Extract<KcContext, { pageId: "err
             displayMessage={false}
             headerNode={msg("errorTitle")}
         >
-            <div id="kc-error-message" className="flex flex-col gap-4">
-                <p className="instruction text-destructive text-sm" dangerouslySetInnerHTML={{ __html: kcSanitize(message.summary) }} />
+            <div id="kc-error-message" className="flex flex-col gap-6">
+                <p className="instruction text-muted-foreground text-sm" dangerouslySetInnerHTML={{ __html: kcSanitize(message.summary) }} />
                 {!skipLink && client !== undefined && client.baseUrl !== undefined && (
                     <div>
-                        <Button variant="link" className="p-0" asChild>
+                        <Button variant="ghost" asChild>
                             <a id="backToApplication" href={client.baseUrl}>
-                                {msg("backToApplication")}
+                                {msgStr("backToLogin").startsWith("&laquo;") ? (
+                                    <>
+                                        <MoveLeft />
+                                        {msgStr("backToLogin").replace("&laquo;", "")}
+                                    </>
+                                ) : (
+                                    msg("backToLogin")
+                                )}
                             </a>
                         </Button>
                     </div>
