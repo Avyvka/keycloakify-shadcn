@@ -81,7 +81,7 @@ export default function Register(props: RegisterProps) {
                     )}
                     <div
                         // className={kcClsx("kcFormGroupClass")}
-                        className="flex flex-col-reverse gap-3"
+                        className="flex flex-col-reverse gap-6"
                     >
                         <div id="kc-form-options" className={kcClsx("kcFormOptionsClass")}>
                             <div
