@@ -37,6 +37,7 @@ library.add(
 const UserProfileFormFields = lazy(() => import("@/login/UserProfileFormFields"));
 const Error = lazy(() => import("@/login/pages/Error"));
 const Login = lazy(() => import("@/login/pages/Login"));
+const LogoutConfirm = lazy(() => import("@/login/pages/LogoutConfirm"));
 const Register = lazy(() => import("@/login/pages/Register"));
 
 const doMakeUserConfirmPassword = true;
@@ -62,6 +63,14 @@ export default function KcPage(props: { kcContext: KcContext }) {
                     case "login.ftl":
                         return (
                             <Login
+                                {...{ kcContext, i18n, classes }}
+                                Template={Template}
+                                doUseDefaultCss={doUseDefaultCss}
+                            />
+                        );
+                    case "logout-confirm.ftl":
+                        return (
+                            <LogoutConfirm
                                 {...{ kcContext, i18n, classes }}
                                 Template={Template}
                                 doUseDefaultCss={doUseDefaultCss}
