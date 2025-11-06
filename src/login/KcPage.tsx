@@ -39,6 +39,7 @@ const Error = lazy(() => import("@/login/pages/Error"));
 const Login = lazy(() => import("@/login/pages/Login"));
 const LogoutConfirm = lazy(() => import("@/login/pages/LogoutConfirm"));
 const Register = lazy(() => import("@/login/pages/Register"));
+const Terms = lazy(() => import("@/login/pages/Terms"));
 
 const doMakeUserConfirmPassword = true;
 const doUseDefaultCss = false;
@@ -84,6 +85,14 @@ export default function KcPage(props: { kcContext: KcContext }) {
                                 doUseDefaultCss={doUseDefaultCss}
                                 UserProfileFormFields={UserProfileFormFields}
                                 doMakeUserConfirmPassword={doMakeUserConfirmPassword}
+                            />
+                        );
+                    case "terms.ftl":
+                        return (
+                            <Terms
+                                {...{ kcContext, i18n, classes }}
+                                Template={Template}
+                                doUseDefaultCss={doUseDefaultCss}
                             />
                         );
                     default:
