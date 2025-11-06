@@ -183,10 +183,10 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                                                     `alert-${message.type}`,
                                                     kcClsx("kcAlertClass"),
                                                     `pf-m-${message?.type === "error" ? "danger" : message.type}`,
-                                                    message.type === "success" && "text-green-600 border-green-300",
-                                                    message.type === "warning" && "text-yellow-600 border-yellow-300",
-                                                    message.type === "error" && "text-red-600 border-red-300",
-                                                    message.type === "info" && "text-sky-600 border-blue-300"
+                                                    message.type === "success" && "border-none bg-green-600/10 text-green-600 dark:bg-green-400/10 dark:text-green-400",
+                                                    message.type === "warning" && "border-none bg-amber-600/10 text-amber-600 dark:bg-amber-400/10 dark:text-amber-400",
+                                                    message.type === "error" && "bg-destructive/10 text-destructive border-none",
+                                                    message.type === "info" && "border-none bg-sky-600/10 text-sky-600 dark:bg-sky-400/10 dark:text-sky-400"
                                                 )}
                                             >
                                                 {/*<div className="pf-c-alert__icon">*/}
@@ -199,15 +199,9 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                                                 {message.type === "warning" && <AlertTriangle />}
                                                 {message.type === "error" && <XCircle />}
                                                 {message.type === "info" && <Info />}
-                                                <AlertDescription>
+                                                <AlertDescription className="text-current">
                                                     <span
-                                                        className={clsx(
-                                                            kcClsx("kcAlertTitleClass"),
-                                                            message.type === "success" && "text-green-600",
-                                                            message.type === "warning" && "text-yellow-600",
-                                                            message.type === "error" && "text-red-600",
-                                                            message.type === "info" && "text-sky-600"
-                                                        )}
+                                                        className={kcClsx("kcAlertTitleClass")}
                                                         dangerouslySetInnerHTML={{
                                                             __html: kcSanitize(message.summary)
                                                         }}
